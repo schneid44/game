@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="./style.css" />
+    <title>Card Game</title>
+  </head>
+  <body>
+    <div id="deck" class="deck">
+      <img class="deck-of-cards" src="./card.png" />
+    </div>
+    <div id="coins" class="coins">
+      <img class="pile-of-coins" src="./coin.png" />
+    </div>
+    <div id="counter-captain"></div>
+    <div id="counter"></div>
+    <div id="lose-card"></div>
+    <div id="exchange-card"></div>
+    <div id="exchange-card-steal"></div>
+    <div id="exchange-card-delete-button"></div>
+    <div id="exchange-card-add-button"></div>
+    <div id="exchange-card-pic"></div>
+    <div id="exchange-card-pic-steal"></div>
+    <div id="challenge"></div>
+    <div id="announcement" class=""></div>
+    <div id="start-game" class=""></div>
+    <div id="player-coins" class=""></div>
+    <div id="block-click"></div>
+    <div id="keep-game-paused"></div>
+    <div id="block-click-steal"></div>
+    <div id="display-names"></div>
+    <div id="player-turn">
+      <div id="income"></div>
+      <div id="foreign-aid"></div>
+      <div id="coup"></div>
+      <div id="tax"></div>
+      <div id="assassinate"></div>
+      <div id="exchange"></div>
+      <div id="steal"></div>
+    </div>
+    <div id="player-cards" class="one-players"></div>
+    <div id="player" class="one-players">
+      <h1 class="player-0">Waiting on other players to join the game...</h1>
+      <h1 id="player-1" class="player-1">Player 1</h1>
+      <h1 id="player-2" class="player-2">Player 2</h1>
+      <h1 id="player-3" class="player-3">Player 3</h1>
+      <h1 id="player-4" class="player-4">Player 4</h1>
+      <h1 id="player-5" class="player-5">Player 5</h1>
+      <h1 id="player-6" class="player-6">Player 6</h1>
+      <h1 class="player-7">You cannot have more than 6 players</h1>
+    </div>
+  </body>
+</html>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/client.js"></script>
+<script src="/action.js"></script>

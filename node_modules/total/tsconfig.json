@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+        "target": "ES6",
+        "module": "CommonJS",
+        "noImplicitAny": true,
+				"preserveConstEnums": true,
+				"moduleResolution": "node",
+				"outDir": "./dist",
+				"baseUrl": ".",
+				"typeRoots": [ "./node_modules/@types/" ] 
+
+    },
+    "exclude": [
+        "node_modules",
+        "**/*.spec.ts"
+    ]
+}

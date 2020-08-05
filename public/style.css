@@ -1,0 +1,1830 @@
+.deck-of-cards {
+  height: 200px;
+  left: 50%;
+  margin-top: -125px;
+  margin-left: -125px;
+  position: absolute;
+  top: 50%;
+  width: 150px;
+}
+.pile-of-coins {
+  height: 80px;
+  left: 62%;
+  margin-top: -125px;
+  margin-left: -125px;
+  position: absolute;
+  top: 58%;
+  width: 90px;
+}
+/* View for one players */
+.one-players .player-0 {
+  position: absolute;
+  top: 20%;
+  left: 30%;
+}
+.one-players .player-1 {
+  display: none;
+}
+.one-players .player-2 {
+  display: none;
+}
+.one-players .player-3 {
+  display: none;
+}
+.one-players .player-4 {
+  display: none;
+}
+.one-players .player-5 {
+  display: none;
+}
+.one-players .player-6 {
+  display: none;
+}
+.one-players .player-7 {
+  display: none;
+}
+/* View for two players */
+.two-players .player-0 {
+  display: none;
+}
+.two-players .player-1 {
+  position: absolute;
+  top: 62%;
+  left: 50%;
+}
+.two-players .player-2 {
+  position: absolute;
+  top: 1%;
+  left: 50%;
+}
+.two-players .player-3 {
+  display: none;
+}
+.two-players .player-4 {
+  display: none;
+}
+.two-players .player-5 {
+  display: none;
+}
+.two-players .player-6 {
+  display: none;
+}
+.two-players .player-7 {
+  display: none;
+}
+/* View for 3 players */
+.three-players .player-0 {
+  display: none;
+}
+.three-players .player-1 {
+  position: absolute;
+  top: 62%;
+  left: 50%;
+}
+.three-players .player-2 {
+  position: absolute;
+  top: 40%;
+  left: 10%;
+}
+.three-players .player-3 {
+  text-align: center;
+  position: absolute;
+  top: 40%;
+  left: 87%;
+}
+.three-players .player-4 {
+  display: none;
+}
+.three-players .player-5 {
+  display: none;
+}
+.three-players .player-6 {
+  display: none;
+}
+.three-players .player-7 {
+  display: none;
+}
+/* View for four players  */
+.four-players .player-0 {
+  display: none;
+}
+.four-players .player-1 {
+  position: absolute;
+  top: 62%;
+  left: 50%;
+}
+.four-players .player-2 {
+  position: absolute;
+  top: 40%;
+  left: 10%;
+}
+.four-players .player-3 {
+  position: absolute;
+  top: 1%;
+  left: 50%;
+  text-align: center;
+}
+.four-players .player-4 {
+  text-align: center;
+  position: absolute;
+  top: 40%;
+  left: 87%;
+}
+.four-players .player-5 {
+  display: none;
+}
+.four-players .player-6 {
+  display: none;
+}
+.four-players .player-7 {
+  display: none;
+}
+/* View for five players  */
+.five-players .player-0 {
+  display: none;
+}
+.five-players .player-1 {
+  position: absolute;
+  top: 62%;
+  left: 50%;
+}
+.five-players .player-2 {
+  position: absolute;
+  top: 35%;
+  left: 8%;
+}
+.five-players .player-3 {
+  position: absolute;
+  top: 0%;
+  left: 37%;
+}
+.five-players .player-4 {
+  position: absolute;
+  top: 0%;
+  left: 60%;
+}
+.five-players .player-5 {
+  position: absolute;
+  top: 35%;
+  left: 86%;
+}
+.five-players .player-6 {
+  display: none;
+}
+.five-players .player-7 {
+  display: none;
+}
+/* View for six players  */
+.six-players .player-0 {
+  display: none;
+}
+.six-players .player-1 {
+  position: absolute;
+  top: 62%;
+  left: 50%;
+}
+.six-players .player-2 {
+  position: absolute;
+  top: 50%;
+  left: 15%;
+}
+.six-players .player-3 {
+  position: absolute;
+  top: 5%;
+  left: 15%;
+}
+.six-players .player-4 {
+  position: absolute;
+  top: 1%;
+  left: 50%;
+}
+.six-players .player-5 {
+  position: absolute;
+  top: 5%;
+  left: 80%;
+}
+.six-players .player-6 {
+  position: absolute;
+  top: 50%;
+  left: 80%;
+}
+.six-players .player-7 {
+  display: none;
+}
+.deal0 {
+  position: absolute;
+  height: 200px;
+  width: 150px;
+  top: 73%;
+  left: 43%;
+}
+.deal1 {
+  position: absolute;
+  height: 200px;
+  width: 150px;
+  top: 73%;
+  left: 55%;
+}
+.deal2 {
+  position: absolute;
+  height: 150px;
+  width: 100px;
+  top: 75%;
+  left: 37%;
+}
+.deal3 {
+  position: absolute;
+  height: 150px;
+  width: 100px;
+  top: 75%;
+  left: 32%;
+}
+.deal4 {
+  position: absolute;
+  height: 150px;
+  width: 100px;
+  top: 75%;
+  left: 32%;
+}
+.start-game {
+  background-color: red;
+  box-shadow: 5px 5px #888888;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  position: absolute;
+  top: 25%;
+  left: 47%;
+  cursor: pointer;
+}
+
+.seven-players .player-0 {
+  display: none;
+}
+.seven-players .player-1 {
+  display: none;
+}
+.seven-players .player-2 {
+  display: none;
+}
+.seven-players .player-3 {
+  display: none;
+}
+.seven-players .player-4 {
+  display: none;
+}
+.seven-players .player-5 {
+  display: none;
+}
+.seven-players .player-6 {
+  display: none;
+}
+.seven-players .player-7 {
+  position: absolute;
+  top: 20%;
+  left: 30%;
+}
+.cards-2 .card-1-2 {
+  height: 130px;
+  left: 57%;
+  margin-top: -125px;
+  margin-left: -125px;
+  position: absolute;
+  top: 27%;
+  width: 80px;
+}
+.cards-2 .card-2-2 {
+  height: 130px;
+  left: 63%;
+  margin-top: -125px;
+  margin-left: -125px;
+  position: absolute;
+  top: 27%;
+  width: 80px;
+}
+
+.cards-3 .card-1-2 {
+  height: 130px;
+  left: 98%;
+  margin-top: -125px;
+  margin-left: -125px;
+  position: absolute;
+  top: 65%;
+  width: 80px;
+}
+.cards-3 .card-2-2 {
+  height: 130px;
+  left: 92%;
+  margin-top: -125px;
+  margin-left: -125px;
+  position: absolute;
+  top: 65%;
+  width: 80px;
+}
+.cards-3 .card-1-3 {
+  height: 130px;
+  left: 21%;
+  margin-top: -125px;
+  margin-left: -125px;
+  position: absolute;
+  top: 65%;
+  width: 80px;
+}
+.cards-3 .card-2-3 {
+  height: 130px;
+  left: 15%;
+  margin-top: -125px;
+  margin-left: -125px;
+  position: absolute;
+  top: 65%;
+  width: 80px;
+}
+/* ENDDDDDDDDDDDDDDDDD */
+.cards-4 .card-1-2 {
+  height: 130px;
+  left: 98%;
+  margin-top: -125px;
+  margin-left: -125px;
+  position: absolute;
+  top: 65%;
+  width: 80px;
+}
+.cards-4 .card-2-2 {
+  height: 130px;
+  left: 92%;
+  margin-top: -125px;
+  margin-left: -125px;
+  position: absolute;
+  top: 65%;
+  width: 80px;
+}
+.cards-4 .card-1-3 {
+  height: 130px;
+  left: 62%;
+  margin-top: -125px;
+  margin-left: -125px;
+  position: absolute;
+  top: 25%;
+  width: 80px;
+}
+.cards-4 .card-2-3 {
+  height: 130px;
+  left: 56%;
+  margin-top: -125px;
+  margin-left: -125px;
+  position: absolute;
+  top: 25%;
+  width: 80px;
+}
+.cards-4 .card-1-4 {
+  height: 130px;
+  left: 21%;
+  margin-top: -125px;
+  margin-left: -125px;
+  position: absolute;
+  top: 65%;
+  width: 80px;
+}
+.cards-4 .card-2-4 {
+  height: 130px;
+  left: 15%;
+  margin-top: -125px;
+  margin-left: -125px;
+  position: absolute;
+  top: 65%;
+  width: 80px;
+}
+/* ENDDDDDDDDDDDDDDDDDDD */
+.cards-5 .card-1-2 {
+  height: 130px;
+  right: 6%;
+  margin-top: -125px;
+  margin-left: -125px;
+  position: absolute;
+  top: 60%;
+  width: 80px;
+}
+.cards-5 .card-2-2 {
+  height: 130px;
+  right: 12%;
+  margin-top: -125px;
+  margin-left: -125px;
+  position: absolute;
+  top: 60%;
+  width: 80px;
+}
+.cards-5 .card-1-3 {
+  height: 130px;
+  right: 32%;
+  margin-top: -125px;
+  margin-left: -125px;
+  position: absolute;
+  top: 25%;
+  width: 80px;
+}
+.cards-5 .card-2-3 {
+  height: 130px;
+  right: 38%;
+  margin-top: -125px;
+  margin-left: -125px;
+  position: absolute;
+  top: 25%;
+  width: 80px;
+}
+.cards-5 .card-1-4 {
+  height: 130px;
+  left: 49%;
+  margin-top: -125px;
+  margin-left: -125px;
+  position: absolute;
+  top: 25%;
+  width: 80px;
+}
+.cards-5 .card-2-4 {
+  height: 130px;
+  left: 43%;
+  margin-top: -125px;
+  margin-left: -125px;
+  position: absolute;
+  top: 25%;
+  width: 80px;
+}
+.cards-5 .card-1-5 {
+  height: 130px;
+  left: 20%;
+  margin-top: -125px;
+  margin-left: -125px;
+  position: absolute;
+  top: 60%;
+  width: 80px;
+}
+.cards-5 .card-2-5 {
+  height: 130px;
+  left: 14%;
+  margin-top: -125px;
+  margin-left: -125px;
+  position: absolute;
+  top: 60%;
+  width: 80px;
+}
+/* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
+.cards-6 .card-1-2 {
+  height: 130px;
+  right: 10.5%;
+  margin-top: -125px;
+  margin-left: -125px;
+  position: absolute;
+  top: 75%;
+  width: 80px;
+}
+.cards-6 .card-2-2 {
+  height: 130px;
+  right: 16.5%;
+  margin-top: -125px;
+  margin-left: -125px;
+  position: absolute;
+  top: 75%;
+  width: 80px;
+}
+.cards-6 .card-1-3 {
+  height: 130px;
+  left: 93%;
+  margin-top: -125px;
+  margin-left: -125px;
+  position: absolute;
+  top: 30%;
+  width: 80px;
+}
+.cards-6 .card-2-3 {
+  height: 130px;
+  left: 87%;
+  margin-top: -125px;
+  margin-left: -125px;
+  position: absolute;
+  top: 30%;
+  width: 80px;
+}
+.cards-6 .card-1-4 {
+  height: 130px;
+  left: 61%;
+  margin-top: -125px;
+  margin-left: -125px;
+  position: absolute;
+  top: 25%;
+  width: 80px;
+}
+.cards-6 .card-2-4 {
+  height: 130px;
+  left: 55%;
+  margin-top: -125px;
+  margin-left: -125px;
+  position: absolute;
+  top: 25%;
+  width: 80px;
+}
+.cards-6 .card-1-5 {
+  height: 130px;
+  left: 26%;
+  margin-top: -125px;
+  margin-left: -125px;
+  position: absolute;
+  top: 30%;
+  width: 80px;
+}
+.cards-6 .card-2-5 {
+  height: 130px;
+  left: 20%;
+  margin-top: -125px;
+  margin-left: -125px;
+  position: absolute;
+  top: 30%;
+  width: 80px;
+}
+.cards-6 .card-1-6 {
+  height: 130px;
+  left: 26%;
+  margin-top: -125px;
+  margin-left: -125px;
+  position: absolute;
+  top: 75%;
+  width: 80px;
+}
+.cards-6 .card-2-6 {
+  height: 130px;
+  left: 20%;
+  margin-top: -125px;
+  margin-left: -125px;
+  position: absolute;
+  top: 75%;
+  width: 80px;
+}
+.coins-2 .coin-1 {
+  position: absolute;
+  font-size: 30px;
+  bottom: 10%;
+  left: 67%;
+  padding: 0px 5px;
+  border-style: solid;
+  background-color: skyblue;
+}
+.coins-2 .coin-num-1 {
+  position: absolute;
+  font-size: 30px;
+  bottom: 10%;
+  left: 75%;
+  padding: 0px 5px;
+  border-style: solid;
+  background-color: skyblue;
+}
+.coins-2 .coin-2 {
+  position: absolute;
+  font-size: 25px;
+  top: 15%;
+  left: 61%;
+  padding: 0px 5px;
+  border-style: solid;
+  background-color: skyblue;
+}
+.coins-2 .coin-num-2 {
+  position: absolute;
+  font-size: 25px;
+  top: 15%;
+  left: 67.5%;
+  padding: 0px 5px;
+  border-style: solid;
+  background-color: skyblue;
+}
+/* End */
+.coins-3 .coin-1 {
+  position: absolute;
+  font-size: 30px;
+  bottom: 10%;
+  left: 67%;
+  padding: 0px 5px;
+  border-style: solid;
+  background-color: skyblue;
+}
+.coins-3 .coin-num-1 {
+  position: absolute;
+  font-size: 30px;
+  bottom: 10%;
+  left: 75%;
+  padding: 0px 5px;
+  border-style: solid;
+  background-color: skyblue;
+}
+.coins-3 .coin-2 {
+  position: absolute;
+  font-size: 25px;
+  top: 65%;
+  left: 85%;
+  padding: 0px 5px;
+  border-style: solid;
+  background-color: skyblue;
+}
+.coins-3 .coin-num-2 {
+  position: absolute;
+  font-size: 25px;
+  top: 65%;
+  left: 91.5%;
+  padding: 0px 5px;
+  border-style: solid;
+  background-color: skyblue;
+}
+.coins-3 .coin-3 {
+  position: absolute;
+  font-size: 25px;
+  top: 65%;
+  left: 9%;
+  padding: 0px 5px;
+  border-style: solid;
+  background-color: skyblue;
+}
+.coins-3 .coin-num-3 {
+  position: absolute;
+  font-size: 25px;
+  top: 65%;
+  left: 15.5%;
+  padding: 0px 5px;
+  border-style: solid;
+  background-color: skyblue;
+}
+/* End */
+.coins-4 .coin-1 {
+  position: absolute;
+  font-size: 30px;
+  bottom: 10%;
+  left: 67%;
+  padding: 0px 5px;
+  border-style: solid;
+  background-color: skyblue;
+}
+.coins-4 .coin-num-1 {
+  position: absolute;
+  font-size: 30px;
+  bottom: 10%;
+  left: 75%;
+  padding: 0px 5px;
+  border-style: solid;
+  background-color: skyblue;
+}
+.coins-4 .coin-2 {
+  position: absolute;
+  font-size: 25px;
+  top: 65%;
+  left: 85%;
+  padding: 0px 5px;
+  border-style: solid;
+  background-color: skyblue;
+}
+.coins-4 .coin-num-2 {
+  position: absolute;
+  font-size: 25px;
+  top: 65%;
+  left: 91.5%;
+  padding: 0px 5px;
+  border-style: solid;
+  background-color: skyblue;
+}
+.coins-4 .coin-3 {
+  position: absolute;
+  font-size: 25px;
+  top: 25%;
+  left: 49%;
+  padding: 0px 5px;
+  border-style: solid;
+  background-color: skyblue;
+}
+.coins-4 .coin-num-3 {
+  position: absolute;
+  font-size: 25px;
+  top: 25%;
+  left: 55.55%;
+  padding: 0px 5px;
+  border-style: solid;
+  background-color: skyblue;
+}
+.coins-4 .coin-4 {
+  position: absolute;
+  font-size: 25px;
+  top: 65%;
+  left: 9%;
+  padding: 0px 5px;
+  border-style: solid;
+  background-color: skyblue;
+}
+.coins-4 .coin-num-4 {
+  position: absolute;
+  font-size: 25px;
+  top: 65%;
+  left: 15.5%;
+  padding: 0px 5px;
+  border-style: solid;
+  background-color: skyblue;
+}
+/* End */
+.coins-5 .coin-1 {
+  position: absolute;
+  font-size: 30px;
+  bottom: 10%;
+  left: 67%;
+  padding: 0px 5px;
+  border-style: solid;
+  background-color: skyblue;
+}
+.coins-5 .coin-num-1 {
+  position: absolute;
+  font-size: 30px;
+  bottom: 10%;
+  left: 75%;
+  padding: 0px 5px;
+  border-style: solid;
+  background-color: skyblue;
+}
+.coins-5 .coin-2 {
+  position: absolute;
+  font-size: 25px;
+  top: 62.5%;
+  left: 84%;
+  padding: 0px 5px;
+  border-style: solid;
+  background-color: skyblue;
+}
+.coins-5 .coin-num-2 {
+  position: absolute;
+  font-size: 25px;
+  top: 62.5%;
+  left: 90.5%;
+  padding: 0px 5px;
+  border-style: solid;
+  background-color: skyblue;
+}
+.coins-5 .coin-3 {
+  position: absolute;
+  font-size: 25px;
+  top: 26%;
+  left: 58%;
+  padding: 0px 5px;
+  border-style: solid;
+  background-color: skyblue;
+}
+.coins-5 .coin-num-3 {
+  position: absolute;
+  font-size: 25px;
+  top: 26%;
+  left: 64.7%;
+  padding: 0px 5px;
+  border-style: solid;
+  background-color: skyblue;
+}
+.coins-5 .coin-4 {
+  position: absolute;
+  font-size: 25px;
+  top: 26%;
+  left: 36%;
+  padding: 0px 5px;
+  border-style: solid;
+  background-color: skyblue;
+}
+.coins-5 .coin-num-4 {
+  position: absolute;
+  font-size: 25px;
+  top: 26%;
+  left: 42.5%;
+  padding: 0px 5px;
+  border-style: solid;
+  background-color: skyblue;
+}
+.coins-5 .coin-5 {
+  position: absolute;
+  font-size: 25px;
+  top: 62.5%;
+  left: 7%;
+  padding: 0px 5px;
+  border-style: solid;
+  background-color: skyblue;
+}
+.coins-5 .coin-num-5 {
+  position: absolute;
+  font-size: 25px;
+  top: 62.5%;
+  left: 13.5%;
+  padding: 0px 5px;
+  border-style: solid;
+  background-color: skyblue;
+}
+/* End */
+.coins-6 .coin-1 {
+  position: absolute;
+  font-size: 30px;
+  bottom: 10%;
+  left: 67%;
+  padding: 0px 5px;
+  border-style: solid;
+  background-color: skyblue;
+}
+.coins-6 .coin-num-1 {
+  position: absolute;
+  font-size: 30px;
+  bottom: 10%;
+  left: 75%;
+  padding: 0px 5px;
+  border-style: solid;
+  background-color: skyblue;
+}
+.coins-6 .coin-2 {
+  position: absolute;
+  font-size: 25px;
+  top: 75%;
+  left: 80%;
+  padding: 0px 5px;
+  border-style: solid;
+  background-color: skyblue;
+}
+.coins-6 .coin-num-2 {
+  position: absolute;
+  font-size: 25px;
+  top: 75%;
+  left: 86.5%;
+  padding: 0px 5px;
+  border-style: solid;
+  background-color: skyblue;
+}
+.coins-6 .coin-3 {
+  position: absolute;
+  font-size: 25px;
+  top: 75%;
+  left: 14%;
+  padding: 0px 5px;
+  border-style: solid;
+  background-color: skyblue;
+}
+.coins-6 .coin-num-3 {
+  position: absolute;
+  font-size: 25px;
+  top: 30%;
+  left: 86.5%;
+  padding: 0px 5px;
+  border-style: solid;
+  background-color: skyblue;
+}
+.coins-6 .coin-4 {
+  position: absolute;
+  font-size: 25px;
+  top: 30%;
+  left: 14%;
+  padding: 0px 5px;
+  border-style: solid;
+  background-color: skyblue;
+}
+.coins-6 .coin-num-4 {
+  position: absolute;
+  font-size: 25px;
+  top: 26%;
+  left: 55.5%;
+  padding: 0px 5px;
+  border-style: solid;
+  background-color: skyblue;
+}
+.coins-6 .coin-5 {
+  position: absolute;
+  font-size: 25px;
+  top: 30%;
+  left: 80%;
+  padding: 0px 5px;
+  border-style: solid;
+  background-color: skyblue;
+}
+.coins-6 .coin-num-5 {
+  position: absolute;
+  font-size: 25px;
+  top: 30%;
+  left: 20.5%;
+  padding: 0px 5px;
+  border-style: solid;
+  background-color: skyblue;
+}
+.coins-6 .coin-6 {
+  position: absolute;
+  font-size: 25px;
+  top: 26%;
+  left: 49%;
+  padding: 0px 5px;
+  border-style: solid;
+  background-color: skyblue;
+}
+.coins-6 .coin-num-6 {
+  position: absolute;
+  font-size: 25px;
+  top: 75%;
+  left: 20.5%;
+  padding: 0px 5px;
+  border-style: solid;
+  background-color: skyblue;
+}
+/* End */
+.coup-light {
+  background-color: red;
+  border: none;
+  color: white;
+  font-weight: bold;
+  padding: 5px 30px 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  margin: 4px 2px;
+  cursor: pointer;
+  position: absolute;
+  top: 73%;
+  left: 29%;
+}
+.coup-dark {
+  background-color: rgba(255, 0, 0, 0.4);
+  border: none;
+  color: white;
+  font-weight: bold;
+  padding: 5px 30px 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  margin: 4px 2px;
+  position: absolute;
+  top: 73%;
+  left: 29%;
+}
+
+.income {
+  background-color: rgb(0, 144, 0);
+  border: none;
+  color: white;
+  font-weight: bold;
+  padding: 5px 20px 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  margin: 4px 2px;
+  cursor: pointer;
+  position: absolute;
+  top: 78%;
+  left: 24%;
+}
+.income-dark {
+  background-color: rgb(0, 144, 0, 0.4);
+  border: none;
+  color: white;
+  font-weight: bold;
+  padding: 5px 20px 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  margin: 4px 2px;
+  cursor: pointer;
+  position: absolute;
+  top: 78%;
+  left: 24%;
+}
+.foreign-aid {
+  background-color: rgb(25, 168, 204);
+  border: none;
+  color: white;
+  font-weight: bold;
+  padding: 5px 8px 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  margin: 4px 2px;
+  cursor: pointer;
+  position: absolute;
+  top: 78%;
+  left: 33%;
+}
+.foreign-aid-dark {
+  background-color: rgb(25, 168, 204, 0.4);
+  border: none;
+  color: white;
+  font-weight: bold;
+  padding: 5px 8px 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  margin: 4px 2px;
+  cursor: pointer;
+  position: absolute;
+  top: 78%;
+  left: 33%;
+}
+.tax {
+  background-color: purple;
+  border: none;
+  color: white;
+  font-weight: bold;
+  padding: 5px 40px 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  margin: 4px 2px;
+  cursor: pointer;
+  position: absolute;
+  top: 83%;
+  left: 24%;
+}
+.tax-dark {
+  background-color: rgba(128, 0, 128, 0.4);
+  border: none;
+  color: white;
+  font-weight: bold;
+  padding: 5px 40px 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  margin: 4px 2px;
+  cursor: pointer;
+  position: absolute;
+  top: 83%;
+  left: 24%;
+}
+.exchange {
+  background-color: rgb(255, 76, 5);
+  border: none;
+  color: white;
+  font-weight: bold;
+  padding: 5px 18px 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  margin: 4px 2px;
+  cursor: pointer;
+  position: absolute;
+  top: 83%;
+  left: 33%;
+}
+.exchange-dark {
+  background-color: rgb(255, 76, 5, 0.4);
+  border: none;
+  color: white;
+  font-weight: bold;
+  padding: 5px 18px 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  margin: 4px 2px;
+  cursor: pointer;
+  position: absolute;
+  top: 83%;
+  left: 33%;
+}
+.steal {
+  background-color: blue;
+  border: none;
+  color: white;
+  font-weight: bold;
+  padding: 5px 33px 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  margin: 4px 2px;
+  cursor: pointer;
+  position: absolute;
+  top: 88%;
+  left: 24%;
+}
+.steal-dark {
+  background-color: rgba(0, 0, 255, 0.4);
+  border: none;
+  color: white;
+  font-weight: bold;
+  padding: 5px 33px 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  margin: 4px 2px;
+  cursor: pointer;
+  position: absolute;
+  top: 88%;
+  left: 24%;
+}
+.assassinate-light {
+  background-color: black;
+  border: none;
+  color: white;
+  font-weight: bold;
+  padding: 5px 7px 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  margin: 4px 2px;
+  cursor: pointer;
+  position: absolute;
+  top: 88%;
+  left: 33%;
+}
+.assassinate-dark {
+  background-color: rgba(0, 0, 0, 0.2);
+  border: none;
+  color: white;
+  font-weight: bold;
+  padding: 5px 7px 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  margin: 4px 2px;
+  position: absolute;
+  top: 88%;
+  left: 33%;
+}
+.green {
+  color: green;
+  font-weight: bold;
+  font-style: italic;
+  text-transform: uppercase;
+}
+.z {
+  z-index: 2;
+}
+.none {
+  display: none;
+}
+.announcement {
+  top: 35%;
+  left: 30%;
+  text-align: center;
+  font-size: 50px;
+  font-weight: bold;
+  position: absolute;
+}
+.announcement-2 {
+  top: 45%;
+  left: 27%;
+  text-align: center;
+  font-size: 50px;
+  font-weight: bold;
+  position: absolute;
+}
+.announcement-right {
+  top: 35%;
+  left: 42%;
+  text-align: center;
+  font-size: 50px;
+  font-weight: bold;
+  position: absolute;
+}
+.announcement-left {
+  top: 35%;
+  left: 24%;
+  text-align: center;
+  font-size: 50px;
+  font-weight: bold;
+  position: absolute;
+}
+.announcement-more-left {
+  top: 35%;
+  left: 20%;
+  text-align: center;
+  font-size: 50px;
+  font-weight: bold;
+  position: absolute;
+}
+.announcement-more-left-small {
+  top: 35%;
+  left: 20%;
+  text-align: center;
+  font-size: 45px;
+  font-weight: bold;
+  position: absolute;
+}
+.counter-text {
+  position: absolute;
+  left: 22%;
+  top: 75%;
+  color: mediumpurple;
+}
+.counter-text-left {
+  position: absolute;
+  left: 20%;
+  top: 75%;
+  color: mediumpurple;
+}
+.counter-button {
+  background-color: purple;
+  border: none;
+  color: white;
+  font-weight: bold;
+  padding: 5px 7px 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  margin: 4px 2px;
+  position: absolute;
+  top: 85%;
+  left: 30%;
+  cursor: pointer;
+}
+.counter-text-other {
+  position: absolute;
+  left: 25%;
+  top: 55%;
+  color: mediumpurple;
+}
+.counter-button-other {
+  background-color: purple;
+  border: none;
+  color: white;
+  font-weight: bold;
+  padding: 5px 7px 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  margin: 4px 2px;
+  position: absolute;
+  top: 65%;
+  left: 30%;
+  cursor: pointer;
+}
+.block-click {
+  height: 300px;
+  width: 300px;
+  top: 67%;
+  left: 22%;
+  position: absolute;
+  z-index: 3;
+  background-color: white;
+  opacity: 0.7;
+}
+.challenge {
+  background-color: red;
+  border: none;
+  color: white;
+  font-weight: bold;
+  padding: 5px 7px 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  margin: 4px 2px;
+  position: absolute;
+  top: 85%;
+  left: 22%;
+  cursor: pointer;
+}
+.no-challenge {
+  background-color: red;
+  border: none;
+  color: white;
+  font-weight: bold;
+  padding: 5px 7px 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  margin: 4px 2px;
+  position: absolute;
+  top: 85%;
+  left: 31%;
+  cursor: pointer;
+}
+.lose-card {
+  position: absolute;
+  z-index: 3;
+  background-color: white;
+  opacity: 0.4;
+}
+.exchange-card {
+  position: absolute;
+  top: 0%;
+  left: 9%;
+  font-size: 20;
+  color: purple;
+}
+.exchange-card-steal {
+  position: absolute;
+  top: 0%;
+  left: 67.5%;
+  font-size: 20;
+  color: purple;
+}
+.exchange-yes {
+  background-color: rgb(114, 16, 206);
+  border: none;
+  color: white;
+  font-weight: bold;
+  padding: 5px 15px 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 15px;
+  margin: 4px 2px;
+  position: absolute;
+  top: 29.4%;
+  left: 10.5%;
+  cursor: pointer;
+  z-index: 1;
+}
+.exchange-yes-steal {
+  background-color: rgb(114, 16, 206);
+  border: none;
+  color: white;
+  font-weight: bold;
+  padding: 5px 15px 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 15px;
+  margin: 4px 2px;
+  position: absolute;
+  top: 29.4%;
+  left: 71%;
+  cursor: pointer;
+  z-index: 1;
+}
+.exchange-no {
+  background-color: rgb(121, 21, 214);
+  border: none;
+  color: white;
+  font-weight: bold;
+  padding: 5px 15px 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 15px;
+  margin: 4px 2px;
+  position: absolute;
+  top: 29.4%;
+  left: 24.8%;
+  cursor: pointer;
+  z-index: 1;
+}
+.exchange-no-steal {
+  background-color: rgb(121, 21, 214);
+  border: none;
+  color: white;
+  font-weight: bold;
+  padding: 5px 15px 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 15px;
+  margin: 4px 2px;
+  position: absolute;
+  top: 29.4%;
+  left: 85.2%;
+  cursor: pointer;
+  z-index: 1;
+}
+.exchange-card-pic {
+  position: absolute;
+  height: 200px;
+  width: 150px;
+  top: 8%;
+  left: 14.5%;
+}
+.exchange-card-pic-steal {
+  position: absolute;
+  height: 200px;
+  width: 150px;
+  top: 8%;
+  left: 75%;
+}
+.exchange-card-pic-0 {
+  position: absolute;
+  height: 200px;
+  width: 150px;
+  top: 1%;
+  left: 1%;
+}
+.exchange-card-pic-1 {
+  position: absolute;
+  height: 200px;
+  width: 150px;
+  top: 1%;
+  left: 12%;
+}
+.exchange-card-pic-2 {
+  position: absolute;
+  height: 150px;
+  width: 100px;
+  top: 8%;
+  left: 24%;
+}
+.exchange-card-pic-3 {
+  position: absolute;
+  height: 150px;
+  width: 100px;
+  top: 8%;
+  left: 32%;
+}
+.add-button-0 {
+  background-color: rgb(74, 0, 144);
+  border: none;
+  color: white;
+  font-weight: bold;
+  padding: 5px 7px 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 15px;
+  margin: 4px 2px;
+  position: absolute;
+  top: 26%;
+  left: 1%;
+  cursor: pointer;
+  z-index: 1;
+}
+.add-button-1 {
+  background-color: rgb(74, 0, 144);
+  border: none;
+  color: white;
+  font-weight: bold;
+  padding: 5px 7px 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 15px;
+  margin: 4px 2px;
+  position: absolute;
+  top: 30%;
+  left: 1%;
+  cursor: pointer;
+  z-index: 1;
+}
+.add-button-2 {
+  background-color: rgb(74, 0, 144);
+  border: none;
+  color: white;
+  font-weight: bold;
+  padding: 5px 7px 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 15px;
+  margin: 4px 2px;
+  position: absolute;
+  top: 34%;
+  left: 1%;
+  cursor: pointer;
+  z-index: 1;
+}
+.add-button-3 {
+  background-color: rgb(74, 0, 144);
+  border: none;
+  color: white;
+  font-weight: bold;
+  padding: 5px 7px 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 15px;
+  margin: 4px 2px;
+  position: absolute;
+  top: 38%;
+  left: 1%;
+  cursor: pointer;
+  z-index: 1;
+}
+.delete-button-0 {
+  background-color: rgba(139, 0, 144, 0.945);
+  border: none;
+  color: white;
+  font-weight: bold;
+  padding: 5px 7px 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 15px;
+  margin: 4px 2px;
+  position: absolute;
+  top: 26%;
+  left: 15%;
+  cursor: pointer;
+  z-index: 1;
+}
+.delete-button-1 {
+  background-color: rgba(139, 0, 144, 0.945);
+  border: none;
+  color: white;
+  font-weight: bold;
+  padding: 5px 7px 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 15px;
+  margin: 4px 2px;
+  position: absolute;
+  top: 30%;
+  left: 15%;
+  cursor: pointer;
+  z-index: 1;
+}
+.delete-button-2 {
+  background-color: rgba(139, 0, 144, 0.945);
+  border: none;
+  color: white;
+  font-weight: bold;
+  padding: 5px 7px 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 15px;
+  margin: 4px 2px;
+  position: absolute;
+  top: 35%;
+  left: 15%;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.delete-button-3 {
+  background-color: rgba(139, 0, 144, 0.945);
+  border: none;
+  color: white;
+  font-weight: bold;
+  padding: 5px 7px 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 15px;
+  margin: 4px 2px;
+  position: absolute;
+  top: 40%;
+  left: 15%;
+  cursor: pointer;
+  z-index: 1;
+}
+.done {
+  background-color: rgba(139, 0, 144, 0.945);
+  border: none;
+  color: white;
+  font-weight: bold;
+  padding: 5px 7px 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 15px;
+  margin: 4px 2px;
+  position: absolute;
+  top: 60%;
+  left: 48%;
+  cursor: pointer;
+  z-index: 1;
+}
+.display-coup {
+  top: 70%;
+  left: 17%;
+  text-align: center;
+  font-size: 25px;
+  color: red;
+  font-weight: bold;
+  position: absolute;
+}
+.display-name-0 {
+  background-color: red;
+  border: none;
+  color: white;
+  font-weight: bold;
+  padding: 1px 30px 1px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 25px;
+  margin: 4px 2px;
+  position: absolute;
+  top: 77%;
+  left: 27%;
+  cursor: pointer;
+  z-index: 1;
+}
+.display-name-1 {
+  background-color: red;
+  border: none;
+  color: white;
+  font-weight: bold;
+  padding: 1px 30px 1px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 25px;
+  margin: 4px 2px;
+  position: absolute;
+  top: 82%;
+  left: 27%;
+  cursor: pointer;
+  z-index: 1;
+}
+.display-name-2 {
+  background-color: red;
+  border: none;
+  color: white;
+  font-weight: bold;
+  padding: 1px 30px 1px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 25px;
+  margin: 4px 2px;
+  position: absolute;
+  top: 87%;
+  left: 27%;
+  cursor: pointer;
+  z-index: 1;
+}
+.display-name-3 {
+  background-color: red;
+  border: none;
+  color: white;
+  font-weight: bold;
+  padding: 1px 30px 1px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 25px;
+  margin: 4px 2px;
+  position: absolute;
+  top: 92%;
+  left: 27%;
+  cursor: pointer;
+  z-index: 1;
+}
+.display-name-4 {
+  background-color: red;
+  border: none;
+  color: white;
+  font-weight: bold;
+  padding: 1px 30px 1px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 25px;
+  margin: 4px 2px;
+  position: absolute;
+  top: 97%;
+  left: 27%;
+  cursor: pointer;
+  z-index: 1;
+}
+.steal-counter-ambassador {
+  background-color: blue;
+  border: none;
+  color: white;
+  font-weight: bold;
+  padding: 5px 7px 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  position: absolute;
+  top: 80%;
+  left: 8%;
+  cursor: pointer;
+}
+.steal-counter-captain {
+  background-color: blue;
+  border: none;
+  color: white;
+  font-weight: bold;
+  padding: 5px 7px 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  position: absolute;
+  top: 85%;
+  left: 9%;
+  cursor: pointer;
+}
+.steal-no-challenge {
+  background-color: blue;
+  border: none;
+  color: white;
+  font-weight: bold;
+  padding: 5px 7px 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  position: absolute;
+  top: 90%;
+  left: 9.5%;
+  cursor: pointer;
+}
+.assassinate-counter-contessa {
+  background-color: black;
+  border: none;
+  color: white;
+  font-weight: bold;
+  padding: 5px 7px 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  position: absolute;
+  top: 79%;
+  left: 9%;
+  cursor: pointer;
+}
+.assassinate-no-challenge {
+  background-color: black;
+  border: none;
+  color: white;
+  font-weight: bold;
+  padding: 5px 7px 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  position: absolute;
+  top: 84%;
+  left: 9.5%;
+  cursor: pointer;
+}
+.display-coup-steal {
+  top: 70%;
+  left: 17%;
+  text-align: center;
+  font-size: 23px;
+  color: blue;
+  font-weight: bold;
+  position: absolute;
+}
+.counter-text-steal {
+  position: absolute;
+  left: 18%;
+  top: 72%;
+  color: blue;
+}
+.counter-text-other-steal {
+  position: absolute;
+  left: 23%;
+  top: 55%;
+  color: blue;
+}
+.counter-button-other-steal {
+  background-color: blue;
+  border: none;
+  color: white;
+  font-weight: bold;
+  padding: 5px 7px 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  margin: 4px 2px;
+  position: absolute;
+  top: 65%;
+  left: 30%;
+  cursor: pointer;
+}
+.counter-button-steal {
+  background-color: blue;
+  border: none;
+  color: white;
+  font-weight: bold;
+  padding: 5px 7px 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  margin: 4px 2px;
+  position: absolute;
+  top: 85%;
+  left: 28%;
+  cursor: pointer;
+}
+.counter-captain {
+  font-size: 0.001;
+  color: white;
+  z-index: -1;
+  display: none;
+}
+.block-click-steal {
+  height: 275px;
+  width: 450px;
+  top: 0%;
+  left: 65%;
+  position: absolute;
+  z-index: 3;
+  background-color: white;
+  opacity: 0.7;
+}
