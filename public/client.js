@@ -1,6 +1,7 @@
 // noprotect
 const username = prompt("Enter a username");
-const socket = io(4000, {
+const socketURL = "https://chickenonaraft01235.herokuapp.com/";
+const socket = io(socketURL, {
   query: {
     username,
   },
