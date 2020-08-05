@@ -5,7 +5,7 @@ const e = require("express");
 const app = express();
 
 app.use(express.static(__dirname + "/public"));
-const expressServer = app.listen(process.env.PORT || 4000);
+const expressServer = app.listen(4000);
 const io = socketio(expressServer, { pingTimeout: 63000 });
 
 //console.log("Node is running on port 4000...");

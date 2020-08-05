@@ -1,6 +1,6 @@
 // noprotect
 const username = prompt("Enter a username");
-const socket = io(process.env.PORT, {
+const socket = io(4000, {
   query: {
     username,
   },
