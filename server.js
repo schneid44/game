@@ -16,6 +16,8 @@ let game;
 //On connections
 io.on("connect", (socket) => {
   const username = socket.handshake.query.username;
+  const password = socket.handshake.query.password;
+
   socket.emit("changeName", username);
   usernames.push(username);
   //console.log(usernames);
@@ -121,7 +123,7 @@ io.on("connect", (socket) => {
   socket.on("disconnect", (reason) => {
     io.clients((error, clients) => {
       numClients = clients.length;
-      // console.log(numClients);
+      console.log("THE NUMBER OF CLIENTS IS: " + numClients);
       io.emit("disconnection", numClients);
       let newSocketId = [];
       let newUsernames = [];
@@ -1784,5 +1786,12 @@ io.on("connect", (socket) => {
       console.log("SERVER GAME WHO WON " + game.whoWon());
       io.emit("gameOver", game.whoWon());
     }
+  });
+  socket.on("restartGame", () => {
+    io.emit("clearGame");
+    io.clients((error, clients) => {
+      numClients = clients.length;
+      io.emit("numClients", numClients);
+    });
   });
 });

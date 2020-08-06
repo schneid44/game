@@ -1,11 +1,29 @@
 // noprotect
-const username = prompt("Enter a username");
-const socketURL = "https://chickenonaraft01235.herokuapp.com/";
+const password = prompt("Enter the password");
+if (password != "belter") {
+  document.getElementById("deck").innerHTML = "";
+  document.getElementById("coins").innerHTML = "";
+  document.getElementById("player").innerHTML = "Incorrect Password";
+  let username;
+} else {
+  username = prompt("Enter a username");
+  document.getElementById(
+    "deck"
+  ).innerHTML = `<img class="deck-of-cards" src="./card.png"/>`;
+  document.getElementById(
+    "coins"
+  ).innerHTML = `<img class="pile-of-coins" src="./coin.png"/>`;
+  document.getElementById(
+    "player"
+  ).innerHTML += `<h1 class="player-0">Waiting on other players to join the game...</h1>`;
+}
+const socketURL = "http://localhost:4000/";
 const socket = io(socketURL, {
   query: {
     username,
   },
 });
+
 const newUsernames = [];
 let newCardz;
 socket.on("changeName", (username) => {
@@ -1588,4 +1606,41 @@ socket.on("gameOver", (name) => {
   document.getElementById(
     "announcement"
   ).innerHTML = `<h1 class = "announcement"> ${name} Wins! The rest of you suck</h1>`;
+  document.getElementById(
+    "restart-game"
+  ).innerHTML = `<button class = "restart-game" id = "restart-game"> New Game</h1>`;
+  document.getElementById("restart-game").addEventListener("click", restart);
+  function restart() {
+    socket.emit("restartGame");
+  }
+});
+socket.on("clearGame", () => {
+  document.getElementById("counter-captain").innerHTML = "";
+  document.getElementById("counter").innerHTML = "";
+  document.getElementById("lose-card").innerHTML = "";
+  document.getElementById("exchange-card").innerHTML = "";
+  document.getElementById("exchange-card-steal").innerHTML = "";
+  document.getElementById("exchange-card-delete-button").innerHTML = "";
+  document.getElementById("exchange-card-add-button").innerHTML = "";
+  document.getElementById("exchange-card-pic").innerHTML = "";
+  document.getElementById("exchange-card-pic-steal").innerHTML = "";
+  document.getElementById("challenge").innerHTML = "";
+  document.getElementById("announcement").innerHTML = "";
+  document.getElementById("keep-game-paused").innerHTML = "";
+  document.getElementById("block-click-steal").innerHTML = "";
+  document.getElementById("display-names").innerHTML = "";
+  document.getElementById("player-cards").innerHTML = "";
+  document.getElementById("player").className = `zero-players`;
+  document.getElementById("player-coins").innerHTML = "";
+  document.getElementById("start-game").innerHTML = "";
+  document.getElementById("restart-game").innerHTML = "";
+  if (document.getElementById("player-turn").innerHTML != "") {
+    document.getElementById("income").innerHTML = "";
+    document.getElementById("foreign-aid").innerHTML = "";
+    document.getElementById("coup").innerHTML = "";
+    document.getElementById("tax").innerHTML = "";
+    document.getElementById("assassinate").innerHTML = "";
+    document.getElementById("exchange").innerHTML = "";
+    document.getElementById("steal").innerHTML = "";
+  }
 });
