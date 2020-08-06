@@ -17,7 +17,7 @@ if (password != "belter") {
     "player"
   ).innerHTML += `<h1 class="player-0">Waiting on other players to join the game...</h1>`;
 }
-const socketURL = "http://localhost:4000/";
+const socketURL = "https://chickenonaraft01235.herokuapp.com/";
 const socket = io(socketURL, {
   query: {
     username,
