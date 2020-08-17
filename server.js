@@ -35,7 +35,7 @@ io.on("connect", (socket) => {
   socket.on("moreThanSeven", () => {
     io.emit("removeButton");
   });
-  //Intialize a game object and deal the cards
+  //Intializ a game object and deal the cards
   //Happens when the Start Game button is clciked
 
   socket.on("startGame", (id) => {
