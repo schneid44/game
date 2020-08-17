@@ -39,6 +39,8 @@ io.on("connect", (socket) => {
   //Happens when the Start Game button is clciked
 
   socket.on("startGame", (id) => {
+    players = [];
+    newUsernames = [];
     console.log("HOW MANY TIMES IS STARTGAME BEING CALLED");
     // console.log(usernames + " ###########################");
     // console.log(socketId + " ###########################");
