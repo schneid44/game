@@ -6,15 +6,18 @@ function newPlayer(number, name, id) {
   return player;
 }
 class Game {
-  constructor(numPlayers, namesArray, idArray) {
+  constructor(numPlayers, namesArray, idArray, newGame) {
     this.numPlayers = numPlayers;
     this.deck = new Deck();
     this.players = [];
     this.idArray = idArray;
     this.namesArray = namesArray;
+
     for (let i = 0; i < this.numPlayers; ++i) {
       this.players.push(newPlayer(i, this.namesArray[i], this.idArray[i]));
     }
+
+    console.log(this.players);
   }
   deal() {
     this.deck.reset();
@@ -104,6 +107,13 @@ class Game {
   }
   printDeck() {
     console.log(this.deck.printDeck());
+  }
+  // Resets everything in the game
+  restartGame() {
+    this.players.forEach((player) => {
+      player.resetPlayer();
+    });
+    this.deck.reset();
   }
 }
 module.exports = Game;

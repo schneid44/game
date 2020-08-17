@@ -98,6 +98,7 @@ class Deck {
     return this.deck;
   }
 }
+
 module.exports = Deck;
 //let deck = new Deck();
 //Testing Schtuff

@@ -1867,3 +1867,30 @@
   left: 47%;
   cursor: pointer;
 }
+.choose-lost-card {
+  position: absolute;
+  top: 1%;
+  left: 3.5%;
+  font-size: 25;
+  color: red;
+}
+.left-card {
+  position: absolute;
+  height: 150px;
+  width: 100px;
+  top: 10%;
+  left: 5%;
+  border-color: blue;
+  border-width: 5px;
+  border-style: solid;
+}
+.right-card {
+  position: absolute;
+  height: 150px;
+  width: 100px;
+  top: 10%;
+  left: 15%;
+  border-color: blue;
+  border-width: 5px;
+  border-style: solid;
+}

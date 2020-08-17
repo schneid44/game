@@ -17,6 +17,7 @@ if (password != "belter") {
     "player"
   ).innerHTML += `<h1 class="player-0">Waiting on other players to join the game...</h1>`;
 }
+
 const socketURL = "https://chickenonaraft01235.herokuapp.com/";
 const socket = io(socketURL, {
   query: {
@@ -24,20 +25,21 @@ const socket = io(socketURL, {
   },
 });
 
-const newUsernames = [];
+let newUsernames = [];
 let newCardz;
 socket.on("changeName", (username) => {
   document.getElementById("player-1").innerHTML = username;
 });
 socket.on("changeOtherNames", (usernames, numClients) => {
-  //console.log(usernames);
+  console.log(usernames);
   for (let i = 2; i <= numClients; ++i) {
     document.getElementById(`player-${i}`).innerHTML = usernames[i - 1];
   }
 });
 socket.on("changeOtherName", (usernames, numClients, name) => {
-  //console.log(name + "!!!!!!!!!");
-  //console.log(usernames);
+  newUsernames = [];
+  console.log(name + "!!!!!!!!!");
+  console.log(usernames);
   let offBy = 0;
   let passed = false;
   usernames.forEach((username) => {
@@ -60,7 +62,7 @@ socket.on("changeOtherName", (usernames, numClients, name) => {
 });
 let num;
 socket.on("numClients", (numClients) => {
-  //console.log(numClients);
+  console.log("HOW MANY TIMES IS NUMCLIENTS BEING CALLED");
   if (numClients === 1) {
     num = "one";
   }
@@ -82,6 +84,7 @@ socket.on("numClients", (numClients) => {
     //console.log("The button was clicked");
     document.getElementById("start-game").innerHTML = "";
     //console.log("The button was clicked!!!!!!");
+    console.log("HOW MANY TIMES IS StartGame BEING CALLED!!!!!!!!!");
     socket.emit("startGame", socket.id);
     socket.emit("addCards");
   }
@@ -165,7 +168,10 @@ socket.on("deal", (cards) => {
 
 //Listen for "yourTurn" event to update the dom for the player's turn
 // Send back an event to the server saying that the player did their turn
-socket.on("firstTurn", (i, numClients) => {
+socket.on("firstTurn", (i, numClients, newGame) => {
+  console.log("I IS ....." + i);
+  console.log("NUMCLIENTS IS ....." + numClients);
+  console.log("THE FIRST TURN WAS ENTERED INTO");
   const income = document.getElementById("income");
   const foreignAid = document.getElementById("foreign-aid");
   const coup = document.getElementById("coup");
@@ -173,19 +179,30 @@ socket.on("firstTurn", (i, numClients) => {
   const assassinate = document.getElementById("assassinate");
   const exchange = document.getElementById("exchange");
   const steal = document.getElementById("steal");
-  income.innerHTML = "<button class='income'>Income</button>";
-  foreignAid.innerHTML = "<button class='foreign-aid'>Foreign Aid</button>";
-  coup.innerHTML = "<button class='coup-dark'>Coup</button1>";
-  tax.innerHTML = "<button class='tax'>Tax</button>";
+  income.innerHTML =
+    "<button id = 'income-button' class='income'>Income</button>";
+  foreignAid.innerHTML =
+    "<button id = 'foreign-aid-button' class='foreign-aid'>Foreign Aid</button>";
+  coup.innerHTML =
+    "<button id = 'coup-button' class='coup-dark'>Coup</button1>";
+  tax.innerHTML = "<button id = 'tax-button' class='tax'>Tax</button>";
   assassinate.innerHTML =
-    "<button class='assassinate-dark'>Assassinate</button>";
-  exchange.innerHTML = "<button class='exchange'>Exchange</button>";
-  steal.innerHTML = "<button class='steal'>Steal</button>";
-  income.addEventListener("click", action);
-  foreignAid.addEventListener("click", action);
-  tax.addEventListener("click", action);
-  exchange.addEventListener("click", action);
-  steal.addEventListener("click", action);
+    "<button id = 'assassinate-button' class='assassinate-dark'>Assassinate</button>";
+  exchange.innerHTML =
+    "<button id = 'exchange-button' class='exchange'>Exchange</button>";
+  steal.innerHTML = "<button id = 'steal-button' class='steal'>Steal</button>";
+  const incomeButton = document.getElementById("income-button");
+  const foreignAidButton = document.getElementById("foreign-aid-button");
+  const coupButton = document.getElementById("coup-button");
+  const taxButton = document.getElementById("tax-button");
+  const assassinateButton = document.getElementById("assassinate-button");
+  const exchangeButton = document.getElementById("exchange-button");
+  const stealButton = document.getElementById("steal-button");
+  incomeButton.addEventListener("click", action);
+  foreignAidButton.addEventListener("click", action);
+  taxButton.addEventListener("click", action);
+  exchangeButton.addEventListener("click", action);
+  stealButton.addEventListener("click", action);
   function action(event) {
     const actions = event.target.innerHTML;
     //console.log(event.target.innerHTML);
@@ -193,13 +210,13 @@ socket.on("firstTurn", (i, numClients) => {
     //TO DO handle clicked on action
     //handleAction(actions);
     socket.emit("action", actions, i, numClients);
-    income.removeEventListener("click", action);
-    foreignAid.removeEventListener("click", action);
-    tax.removeEventListener("click", action);
-    exchange.removeEventListener("click", action);
-    steal.removeEventListener("click", action);
-    coup.removeEventListener("click", action);
-    assassinate.removeEventListener("click", action);
+    incomeButton.removeEventListener("click", action);
+    foreignAidButton.removeEventListener("click", action);
+    taxButton.removeEventListener("click", action);
+    exchangeButton.removeEventListener("click", action);
+    stealButton.removeEventListener("click", action);
+    coupButton.removeEventListener("click", action);
+    assassinateButton.removeEventListener("click", action);
     income.innerHTML = "";
     foreignAid.innerHTML = "";
     coup.innerHTML = "";
@@ -207,13 +224,22 @@ socket.on("firstTurn", (i, numClients) => {
     assassinate.innerHTML = "";
     exchange.innerHTML = "";
     steal.innerHTML = "";
-    socket.emit("nextTurn", i + 1, numClients);
+    if (newGame) {
+      socket.emit("newNextTurn", i + 1, numClients, socket.id);
+    } else {
+      socket.emit("nextTurn", i + 1, numClients, socket.id);
+    }
+    console.log(i + " THE FIRST TURN WAS CLICKED");
   }
 });
-socket.on("takeTurn", (i, numClients, coins, player) => {
-  //console.log(player);
-  //console.log(coins + "{{{{{{{{{{{{{{{{{{{{");
-  //console.log("It's this player's turn");
+socket.on("takeTurn", (i, numClients, coins, player, gameOver) => {
+  console.log(
+    "****************************************************************************"
+  );
+  console.log(i + "{{{{{{{{{{{{{{{{{{{{");
+  console.log(coins + "{{{{{{{{{{{{{{{{{{{{");
+  console.log(numClients + "{{{{{{{{{{{{{{{{{{{{");
+  console.log(player);
   const income = document.getElementById("income");
   const foreignAid = document.getElementById("foreign-aid");
   const coup = document.getElementById("coup");
@@ -221,47 +247,59 @@ socket.on("takeTurn", (i, numClients, coins, player) => {
   const assassinate = document.getElementById("assassinate");
   const exchange = document.getElementById("exchange");
   const steal = document.getElementById("steal");
-  income.innerHTML = "<button id = 'income-1'class='income'>Income</button>";
+  income.innerHTML =
+    "<button id = 'income-button'class='income'>Income</button>";
   foreignAid.innerHTML =
-    "<button id= 'foreign-aid-1'class='foreign-aid'>Foreign Aid</button>";
-  tax.innerHTML = "<button id = 'tax-1'class='tax'>Tax</button>";
+    "<button id= 'foreign-aid-button'class='foreign-aid'>Foreign Aid</button>";
+  tax.innerHTML = "<button id = 'tax-button'class='tax'>Tax</button>";
   if (coins < 3) {
     assassinate.innerHTML =
-      "<button id = 'assassinate-1' class='assassinate-dark'>Assassinate</button>";
+      "<button id = 'assassinate-button' class='assassinate-dark'>Assassinate</button>";
   }
   if (coins >= 3) {
     assassinate.innerHTML =
-      "<button id = 'assassinate-1' class='assassinate-light'>Assassinate</button>";
-    assassinate.addEventListener("click", action);
+      "<button id = 'assassinate-button' class='assassinate-light'>Assassinate</button>";
+    const assassinateButton = document.getElementById("assassinate-button");
+    assassinateButton.addEventListener("click", action);
   }
   if (coins < 7) {
-    coup.innerHTML = "<button id = 'coup-1' class='coup-dark'>Coup</button1>";
+    coup.innerHTML =
+      "<button id = 'coup-button' class='coup-dark'>Coup</button1>";
   }
   if (coins >= 7) {
-    coup.innerHTML = "<button id = 'coup-1' class='coup-light'>Coup</button1>";
-    coup.addEventListener("click", action);
+    coup.innerHTML =
+      "<button id = 'coup-button' class='coup-light'>Coup</button1>";
+    const coupButton = document.getElementById("coup-button");
+    coupButton.addEventListener("click", action);
   }
   exchange.innerHTML =
-    "<button id = 'exchange-1'class='exchange'>Exchange</button>";
-  steal.innerHTML = "<button id = 'steal-1'class='steal'>Steal</button>";
-  income.addEventListener("click", action);
-  foreignAid.addEventListener("click", action);
-  tax.addEventListener("click", action);
-  exchange.addEventListener("click", action);
-  steal.addEventListener("click", action);
-  function action(event, numOfClients) {
+    "<button id = 'exchange-button'class='exchange'>Exchange</button>";
+  steal.innerHTML = "<button id = 'steal-button'class='steal'>Steal</button>";
+  const incomeButton = document.getElementById("income-button");
+  const foreignAidButton = document.getElementById("foreign-aid-button");
+  const coupButton = document.getElementById("coup-button");
+  const taxButton = document.getElementById("tax-button");
+  const assassinateButton = document.getElementById("assassinate-button");
+  const exchangeButton = document.getElementById("exchange-button");
+  const stealButton = document.getElementById("steal-button");
+  incomeButton.addEventListener("click", action);
+  foreignAidButton.addEventListener("click", action);
+  taxButton.addEventListener("click", action);
+  exchangeButton.addEventListener("click", action);
+  stealButton.addEventListener("click", action);
+  function action(event) {
     const actions = event.target.innerHTML;
     //TO DO -- handle clicked on action
     //handleAction(actions);
     socket.emit("removeCounter");
     socket.emit("action", actions, i, numClients);
-    income.removeEventListener("click", action);
-    foreignAid.removeEventListener("click", action);
-    tax.removeEventListener("click", action);
-    exchange.removeEventListener("click", action);
-    steal.removeEventListener("click", action);
-    coup.removeEventListener("click", action);
-    assassinate.removeEventListener("click", action);
+    incomeButton.removeEventListener("click", action);
+    foreignAidButton.removeEventListener("click", action);
+    taxButton.removeEventListener("click", action);
+    exchangeButton.removeEventListener("click", action);
+    stealButton.removeEventListener("click", action);
+    coupButton.removeEventListener("click", action);
+    assassinateButton.removeEventListener("click", action);
     income.innerHTML = "";
     foreignAid.innerHTML = "";
     coup.innerHTML = "";
@@ -271,7 +309,24 @@ socket.on("takeTurn", (i, numClients, coins, player) => {
     steal.innerHTML = "";
     i = (i + 1) % numClients;
     // console.log(i + " **************");
+    console.log("TEST IS GETTING CALLED!!!!!!!!!!!!!!!!!!!");
     socket.emit("test", i, numClients);
+  }
+  if (gameOver) {
+    income.removeEventListener("click", action);
+    foreignAid.removeEventListener("click", action);
+    tax.removeEventListener("click", action);
+    exchange.removeEventListener("click", action);
+    steal.removeEventListener("click", action);
+    coup.removeEventListener("click", action);
+    assassinate.removeEventListener("click", action);
+    income.innerHTML = "";
+    foreignAid.innerHTML = "";
+    coup.innerHTML = "";
+    tax.innerHTML = "";
+    assassinate.innerHTML = "";
+    exchange.innerHTML = "";
+    steal.innerHTML = "";
   }
 });
 socket.on("green", (numClients, name) => {
@@ -636,7 +691,9 @@ socket.on(
         socket.emit("unPauseGame", (extraI + 1) % numClients, playerNum);
       }
       document.getElementById("deal0").className += " lose-card";
-      document.getElementById("deal1").className += " lose-card";
+      if (document.getElementById("player-cards").innerHTML.includes("deal1")) {
+        document.getElementById("deal1").className += " lose-card";
+      }
       if (!lying) {
         if (
           action === "Foreign Aid" ||
@@ -678,17 +735,18 @@ socket.on(
       }
       document.getElementById(
         "lose-card"
-      ).innerHTML = `<h1 class ="lose-card">Choose a card to loose</h1><button id = "left-card"class='left-card'>${cards[0]}</button> <button id= "right-card" class='right-card'>${cards[1]}</button>`;
+      ).innerHTML = `<h1 class ="choose-lost-card">Choose a Card to Lose</h1><img id = "left-card"class='left-card' src ='${cards[0]}.jpg' alt ='${cards[0]}'> <img id= "right-card" class='right-card' src = '${cards[1]}.jpg' alt ='${cards[1]}'>`;
       document
         .getElementById("right-card")
         .addEventListener("click", (event) => {
-          socket.emit("chosenLostCard", event.target.innerHTML);
+          console.log(event.target.alt + "~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+          socket.emit("chosenLostCard", event.target.alt);
           document.getElementById("lose-card").innerHTML = "";
           document.getElementById("deal1").className += " lose-card";
           socket.emit("removeStealBlockClick", extraI, stealPlayer);
           socket.emit(
             "cardLost",
-            event.target.innerHTML,
+            event.target.alt,
             i,
             playerNum,
             lying,
@@ -740,13 +798,14 @@ socket.on(
       document
         .getElementById("left-card")
         .addEventListener("click", (event) => {
-          socket.emit("chosenLostCard", event.target.innerHTML);
+          console.log(event.target.alt + "~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+          socket.emit("chosenLostCard", event.target.alt);
           document.getElementById("lose-card").innerHTML = "";
           document.getElementById("deal0").className += " lose-card";
           socket.emit("removeStealBlockClick", extraI, stealPlayer);
           socket.emit(
             "cardLost",
-            event.target.innerHTML,
+            event.target.alt,
             i,
             playerNum,
             lying,
@@ -823,6 +882,7 @@ socket.on(
         playerNumCards === 1 &&
         !testFired
       ) {
+        console.log("TEST IS GETTING CALLED@@@@@@@@@@@@@@@@@@@@@@@");
         socket.emit("test", (extraI + j) % numClients);
         //console.log("IS LYING IS " + lying);
         if (!lying) {
@@ -830,7 +890,13 @@ socket.on(
           // console.log("I + J ISSSSS$$$$$$$$ " + ((extraI + j) % numClients));
           socket.emit("pauseGame", (extraI + j) % numClients);
         }
-        document.getElementById("player-turn").innerHTML = "";
+        document.getElementById("income").innerHTML = "";
+        document.getElementById("foreign-aid").innerHTML = "";
+        document.getElementById("coup").innerHTML = "";
+        document.getElementById("tax").innerHTML = "";
+        document.getElementById("assassinate").innerHTML = "";
+        document.getElementById("exchange").innerHTML = "";
+        document.getElementById("steal").innerHTML = "";
         if (action === "Exchange") {
           socket.emit("pauseGame", (extraI + j) % numClients);
         }
@@ -840,7 +906,9 @@ socket.on(
 );
 
 socket.on("revealCard", (card, numClients, names, name, number, numCards) => {
-  // console.log(numCards + "######################");
+  console.log(names + "######################");
+  console.log(name + "######################");
+  console.log(number + "######################");
   let index = numClients;
   let found = false;
   let offBy = 0;
@@ -907,7 +975,7 @@ socket.on("whichCardLost", (card, name, i, numCards) => {
       document.getElementById(
         "announcement"
       ).innerHTML = `<h1 class = "announcement-right">${name} is out! </h1>`;
-      socket.emit("checkGameOver");
+      socket.emit("checkGameOver", i);
     }, 3000);
   }
   //console.log(name + " TELL ME THE NAME%%%%%%%%%%%%%");
@@ -915,10 +983,10 @@ socket.on("whichCardLost", (card, name, i, numCards) => {
 socket.on(
   "revealLostCard",
   (card, numClients, names, name, number, numCards) => {
-    // console.log(numClients + "!!!!!!!!!!!!");
-    // console.log(names);
-    //console.log(name);
-    //console.log(number);
+    console.log(names + "######################");
+    console.log(name + "######################");
+    console.log(number + "######################");
+
     let index = numClients;
     let found = false;
     let offBy = 0;
@@ -1437,16 +1505,17 @@ socket.on(
     if (numCards === 2) {
       document.getElementById(
         "lose-card"
-      ).innerHTML = `<h1 class ="lose-card">Choose a card to loose</h1><button id = "left-card"class='left-card'>${cards[0]}</button> <button id= "right-card" class='right-card'>${cards[1]}</button>`;
+      ).innerHTML = `<h1 class ="choose-lost-card">Choose a Card to Lose</h1><img id = "left-card"class='left-card' src ='${cards[0]}.jpg' alt ='${cards[0]}'> <img id= "right-card" class='right-card' src = '${cards[1]}.jpg' alt ='${cards[1]}'>`;
       document
         .getElementById("right-card")
         .addEventListener("click", (event) => {
-          socket.emit("chosenLostCard", event.target.innerHTML);
+          console.log(event.target.alt + "~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+          socket.emit("chosenLostCard", event.target.alt);
           document.getElementById("lose-card").innerHTML = "";
           document.getElementById("deal1").className += " lose-card";
           socket.emit(
             "cardLostCoup",
-            event.target.innerHTML,
+            event.target.alt,
             playerNum,
             action,
             numClients,
@@ -1458,12 +1527,13 @@ socket.on(
       document
         .getElementById("left-card")
         .addEventListener("click", (event) => {
-          socket.emit("chosenLostCard", event.target.innerHTML);
+          console.log(event.target.alt + "~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+          socket.emit("chosenLostCard", event.target.alt);
           document.getElementById("lose-card").innerHTML = "";
           document.getElementById("deal0").className += " lose-card";
           socket.emit(
             "cardLostCoup",
-            event.target.innerHTML,
+            event.target.alt,
             playerNum,
             action,
             numClients,
@@ -1476,8 +1546,15 @@ socket.on(
 
     //console.log(playerNum + " " + (i + 1));
     if (playerNum === (i + 1) % numClients && numCards === 1) {
+      console.log("TEST IS GETTING CALLED####################");
       socket.emit("test", (i + 1) % numClients);
-      document.getElementById("player-turn").innerHTML = "";
+      document.getElementById("income").innerHTML = "";
+      document.getElementById("foreign-aid").innerHTML = "";
+      document.getElementById("coup").innerHTML = "";
+      document.getElementById("tax").innerHTML = "";
+      document.getElementById("assassinate").innerHTML = "";
+      document.getElementById("exchange").innerHTML = "";
+      document.getElementById("steal").innerHTML = "";
     }
   }
 );
@@ -1490,7 +1567,7 @@ socket.on("coupAnnouncement", (name, otherName, action) => {
   } else if (action === "Assassinate") {
     announcement.innerHTML = `<h1 class = "announcement"> ${name} Assassinates ${otherName}!</h1>`;
   } else if (action === "Exchange") {
-    announcement.innerHTML = `<h1 class = "announcement"> ${name} Exchanges  with Ambassador! </h1>`;
+    announcement.innerHTML = `<h1 class = "announcement-left"> ${name} Exchanges  with Ambassador! </h1>`;
   }
 });
 //Button for Block With Ambassador
@@ -1608,13 +1685,16 @@ socket.on("gameOver", (name) => {
   ).innerHTML = `<h1 class = "announcement"> ${name} Wins! The rest of you suck</h1>`;
   document.getElementById(
     "restart-game"
-  ).innerHTML = `<button class = "restart-game" id = "restart-game"> New Game</h1>`;
-  document.getElementById("restart-game").addEventListener("click", restart);
+  ).innerHTML = `<button class = "restart-game" id = "restart-game-button"> New Game</h1>`;
+  document
+    .getElementById("restart-game-button")
+    .addEventListener("click", restart);
   function restart() {
-    socket.emit("restartGame");
+    console.log(socket.id);
+    socket.emit("restartGame", socket.id);
   }
 });
-socket.on("clearGame", () => {
+socket.on("clearGame", (numClients, id) => {
   document.getElementById("counter-captain").innerHTML = "";
   document.getElementById("counter").innerHTML = "";
   document.getElementById("lose-card").innerHTML = "";
@@ -1628,19 +1708,81 @@ socket.on("clearGame", () => {
   document.getElementById("announcement").innerHTML = "";
   document.getElementById("keep-game-paused").innerHTML = "";
   document.getElementById("block-click-steal").innerHTML = "";
+  document.getElementById("block-click").innerHTML = "";
   document.getElementById("display-names").innerHTML = "";
   document.getElementById("player-cards").innerHTML = "";
   document.getElementById("player").className = `zero-players`;
   document.getElementById("player-coins").innerHTML = "";
   document.getElementById("start-game").innerHTML = "";
   document.getElementById("restart-game").innerHTML = "";
-  if (document.getElementById("player-turn").innerHTML != "") {
-    document.getElementById("income").innerHTML = "";
-    document.getElementById("foreign-aid").innerHTML = "";
-    document.getElementById("coup").innerHTML = "";
-    document.getElementById("tax").innerHTML = "";
-    document.getElementById("assassinate").innerHTML = "";
-    document.getElementById("exchange").innerHTML = "";
-    document.getElementById("steal").innerHTML = "";
+  document.getElementById("income").innerHTML = "";
+  document.getElementById("foreign-aid").innerHTML = "";
+  document.getElementById("coup").innerHTML = "";
+  document.getElementById("tax").innerHTML = "";
+  document.getElementById("assassinate").innerHTML = "";
+  document.getElementById("exchange").innerHTML = "";
+  document.getElementById("steal").innerHTML = "";
+  for (let i = 1; i <= numClients; ++i) {
+    document.getElementById(`player-${i}`).className = `player-${i}`;
   }
+  if (socket.id == id) {
+    socket.emit("callNewGame", numClients, id);
+  }
+});
+socket.on("sendPlayers", (players, newUsernames, usernames, socketId, game) => {
+  console.log(players);
+  console.log(newUsernames);
+  console.log(usernames);
+  console.log(socketId);
+  console.log(game);
+});
+
+socket.on("newGame", (numClients, id) => {
+  if (numClients === 1) {
+    num = "one";
+  }
+  if (numClients === 2) {
+    num = "two";
+  } else if (numClients === 3) {
+    num = "three";
+  } else if (numClients === 4) {
+    num = "four";
+  } else if (numClients === 5) {
+    num = "five";
+  } else if (numClients === 6) {
+    num = "six";
+  } else if (numClients === 7) {
+    num = "seven";
+  }
+
+  document.getElementById("start-game").innerHTML = "";
+
+  if (socket.id === id) {
+    socket.emit("startNewGame", id);
+  }
+  socket.emit("addNewCards");
+
+  document.getElementById("player").className = `${num}-players`;
+  //When the # of clients is 2 or greater, display the start game button
+
+  socket.on("addNewStartingCards", (clientNumber) => {
+    // add the starting face down cards as well as the starting number of coins
+    document.getElementById("start-game").className = `cards-${clientNumber}`;
+    // console.log("schtuff");
+    for (let i = 2; i <= clientNumber; ++i) {
+      document.getElementById(
+        "start-game"
+      ).innerHTML += `<img src ="./card.png" id = "first-card-${i}"class = "card-1-${i}"> <img src ="./card.png" id = "second-card-${i}"class = "card-2-${i}">`;
+    }
+  });
+  socket.on("addNewStartingCoins", (clientNumber) => {
+    document.getElementById("player-coins").className = `coins-${clientNumber}`;
+    //console.log("The number of clients is " + clientNumber);
+    for (let i = 1; i <= clientNumber; ++i) {
+      let two = 2;
+      document.getElementById(
+        "player-coins"
+      ).innerHTML += `<h1 class="coin-${i}">Coins:</h1> <h1 id = "coins-${i}"class ="coin-num-${i}">2</h1>`;
+    }
+  });
 });

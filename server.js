@@ -11,12 +11,14 @@ const io = socketio(expressServer, { pingTimeout: 63000 });
 //console.log("Node is running on port 4000...");
 let socketId = [];
 let usernames = [];
-const players = [];
+let newUsernames = [];
+let players = [];
+let names = [];
 let game;
 //On connections
 io.on("connect", (socket) => {
+  console.log("A CLIENT CONNNECTERD %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
   const username = socket.handshake.query.username;
-  const password = socket.handshake.query.password;
 
   socket.emit("changeName", username);
   usernames.push(username);
@@ -35,7 +37,12 @@ io.on("connect", (socket) => {
   });
   //Intialize a game object and deal the cards
   //Happens when the Start Game button is clciked
+
   socket.on("startGame", (id) => {
+    console.log("HOW MANY TIMES IS STARTGAME BEING CALLED");
+    // console.log(usernames + " ###########################");
+    // console.log(socketId + " ###########################");
+    // console.log(players + " ###########################");
     io.emit("deleteButton");
     socket.on("addCards", () => {
       io.clients((error, clients) => {
@@ -47,9 +54,11 @@ io.on("connect", (socket) => {
     io.clients((error, clients) => {
       let numClients = clients.length;
       //(numClients + "*******************");
-      //console.log(usernames + "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+
       game = new Game(numClients, usernames, socketId);
 
+      //console.log(usernames + " usernames $$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+      //console.log(socketId + " socketId $$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
       // console.log(
       //   "***********************************************************"
       // );
@@ -57,24 +66,32 @@ io.on("connect", (socket) => {
       // console.log(socketId);
 
       game.deal();
-      game.printDeck();
+
+      //console.log(game);
+      // game.printPlayers();
+      // game.printDeck();
       //game.printPlayersHands();
       //game.printPlayers();
       // Send the player's cards to each client to display on the browser
       game.getPlayers().forEach((player) => {
         //console.log(player.getCards());
         //console.log(player.getNumber());
+
         if (socket.id === player.getId()) {
+          console.log("THE NAME OF THE PLAYER IS " + player.getName());
           socket.emit("deal", player.getCards());
         }
+
         socket.to(player.getId()).emit("deal", player.getCards());
       });
+
       //("The socket that started the game was " + id);
       game.getPlayers().forEach((player) => {
         if (player.getId() === id) {
           players.push(player);
         }
       });
+
       game.getPlayers().forEach((player) => {
         if (player.getId() != id) {
           players.push(player);
@@ -86,10 +103,10 @@ io.on("connect", (socket) => {
         players[i].setNumber(i + 1);
       }
 
-      newUsernames = [];
       players.forEach((player) => {
         newUsernames.push(player.getName());
       });
+
       socket.emit("changeOtherNames", newUsernames, numClients);
       // console.log(numClients);
       players.forEach((player) => {
@@ -97,33 +114,56 @@ io.on("connect", (socket) => {
           .to(player.getId())
           .emit("changeOtherName", newUsernames, numClients, player.getName());
       });
-      socket.emit("sendPlayers", players);
+      io.emit("sendPlayers", players);
       //console.log(newUsernames);
       //console.log(players);
       //console.log(socketId);
-      if (!game.gameOver()) {
-        // console.log(numClients);
-        let i = 0;
-        //console.log(players[i].getId());
-        socket.emit("firstTurn", i, numClients);
-        io.emit("green", numClients, players[0].getName());
-        socket.on("nextTurn", (i, numClients) => {
-          //console.log("nextTurn.on " + i);
-          io.emit("greenOff", numClients, players[0].getName());
-          socket
-            .to(players[i].getId())
-            .emit("takeTurn", i, numClients, players[i].getCoins(), players[i]);
-          //console.log("takeTurn.emit " + i);
-          io.emit("green", numClients, players[1].getName());
+
+      // console.log(numClients);
+      let i = 0;
+      //console.log(players[i].getId());
+      //console.log(players);      console.log("FIRST TURN IS GETTING CALLED $$$$$$$$$$$$$$$$$$$$$");
+      socket.emit("firstTurn", i, numClients);
+      console.log("FIRST TURN GOT CALLED $$$$$$$$$$$$$$$$$$$$$");
+      console.log("GREEN IS GETTING CALLED $$$$$$$$$$$$$$$$$$$$$");
+      io.emit("green", numClients, players[0].getName());
+      console.log("GREEN GOT CALLED $$$$$$$$$$$$$$$$$$$$$");
+      console.log("NEXT TURN IS GETTING CALLED $$$$$$$$$$$$$$$$$$$$$");
+      socket.on("nextTurn", (i, numClients, id) => {
+        console.log("THE ID ISSSSSSS: " + id);
+        console.log("NEXT TURN GOT CALLED $$$$$$$$$$$$$$$$$$$$$");
+        io.emit("greenOff", numClients, players[0].getName());
+        //console.log("TAKE TURN IS GETTING CALLED *******************");
+        console.log("TAKE TURN IS GETTING CALLED $$$$$$$$$$$$$$$$$$$$$");
+        io.emit(
+          "sendPlayers",
+          players,
+          newUsernames,
+          usernames,
+          socketId,
+          game
+        );
+        let num = 0;
+        players.forEach((player) => {
+          if (player.getId() === players[i].getId()) {
+            num += 1;
+          }
         });
-      }
+        console.log("NUM IS " + num);
+        console.log("THe Next Player Is " + players[i].getName());
+        socket
+          .to(players[i].getId())
+          .emit("takeTurn", i, numClients, players[i].getCoins(), players[i]);
+        console.log("TAKE TURN GOT CALLED $$$$$$$$$$$$$$$$$$$$$");
+        io.emit("green", numClients, players[1].getName());
+      });
     });
   });
   //If someone disconnects, update # of clients and send to client.js
   socket.on("disconnect", (reason) => {
     io.clients((error, clients) => {
       numClients = clients.length;
-      console.log("THE NUMBER OF CLIENTS IS: " + numClients);
+      // console.log("THE NUMBER OF CLIENTS IS: " + numClients);
       io.emit("disconnection", numClients);
       let newSocketId = [];
       let newUsernames = [];
@@ -146,9 +186,9 @@ io.on("connect", (socket) => {
     });
   });
   socket.on("test", (i) => {
-    console.log(
-      "!!!!!!!!!!!!!!!!!!!!!HOW MANY IMES IS TEST GETTING CALLED!!!!!!!!!!!!!!!!!!!!!!!!!!"
-    );
+    console.log("I IS.......... " + i);
+    io.emit("sendPlayers", players, newUsernames, usernames, socketId, game);
+    console.log("I IS.......... " + i);
     //console.log("ANDDDDD THE FIRST I IS: " + i);
     io.clients((error, clients) => {
       let numClients = clients.length;
@@ -158,6 +198,8 @@ io.on("connect", (socket) => {
       }
       // console.log("ANDDDDD THE I IS: " + i);
       //console.log(i + "   OOOOOOOOOUUUUUUUTTTTTTT");
+      //console.log("TAKE TURN IS GETTING CALLED &&&&&&&&&&&&&&&&&&");
+
       socket
         .to(players[i].getId())
         .emit("takeTurn", i, numClients, players[i].getCoins(), players[i]);
@@ -172,6 +214,7 @@ io.on("connect", (socket) => {
     });
   });
   socket.on("action", (action, i, numClients) => {
+    //console.log("HOW MANY TIMES IS ACTION BEING CALLED");
     if (action === "Income") {
       players[i].gainOneCoin();
     } else if (action === "Foreign Aid") {
@@ -212,11 +255,11 @@ io.on("connect", (socket) => {
       const newCards = game.exchange();
       //console.log(newCards + "????????????");
       game.printDeck();
-      console.log(
-        "THE NUMBER OF CARDS IS: " +
-          players[i].getNumCards() +
-          " !!!!!!!!!!!!!!!!!!!"
-      );
+      // console.log(
+      //   "THE NUMBER OF CARDS IS: " +
+      //     players[i].getNumCards() +
+      //     " !!!!!!!!!!!!!!!!!!!"
+      // );
 
       socket.emit(
         "exchange",
@@ -226,11 +269,11 @@ io.on("connect", (socket) => {
         players[i].getNumCards(),
         numClients
       );
-      console.log(
-        "THE NUMBER OF CARDS IS: " +
-          players[i].getNumCards() +
-          " !!!!!!!!!!!!!!!!!!!"
-      );
+      //  // console.log(
+      //     "THE NUMBER OF CARDS IS: " +
+      //       players[i].getNumCards() +
+      //       " !!!!!!!!!!!!!!!!!!!"
+      //   );
       for (let j = 0; j < numClients; ++j) {
         if (j === i) {
         } else {
@@ -278,7 +321,9 @@ io.on("connect", (socket) => {
     // console.log(players[i]);
     //console.log("WHO IS RESPONSIBLE FOR THIS MADNESS " + players[i].getName());
     socket.emit("income", players[i].getCoins());
-    let names = [];
+    // console.log("THESE ARE THE PLAYER NAMES");
+    // console.log(players);
+    names = [];
     players.forEach((player) => {
       names.push(player.getName());
     });
@@ -297,7 +342,7 @@ io.on("connect", (socket) => {
     io.emit("incomeAll", players[i].getName(), action);
   });
   socket.on("ForeignAidCounterAttempt", (id, i, action, stealPlayer) => {
-    console.log(stealPlayer + " ^^^^^^^^^^^^^^^^^^^");
+    //console.log(stealPlayer + " ^^^^^^^^^^^^^^^^^^^");
     io.clients((error, clients) => {
       let numClients = clients.length;
       //console.log(numClients);
@@ -306,7 +351,7 @@ io.on("connect", (socket) => {
       while (players[j].isOut()) {
         j = (j + 1) % numClients;
       }
-      console.log("J ISSSSSS: " + j);
+      //console.log("J ISSSSSS: " + j);
       socket.to(players[j].getId()).emit("pauseGame");
       if (id === players[j].getId()) {
         socket.emit("pauseGame");
@@ -411,15 +456,15 @@ io.on("connect", (socket) => {
       stealBlockChoice,
       stealPlayer
     ) => {
-      console.log(stealPlayer + " ********************");
-      game.printPlayers();
+      // console.log(stealPlayer + " ********************");
       //  console.log(stealBlockChoice + "Lllllllllll");
       // console.log("IS LYING IS: " + isLying);
       // console.log("stealBlockChoice IS: " + stealBlockChoice);
       io.clients((error, clients) => {
         let numClients = clients.length;
-        //console.log(numClients);
-        let names = [];
+        // console.log("THESE ARE THE PLAYER NAMES");
+        // console.log(players);
+        names = [];
         players.forEach((p) => {
           names.push(p.getName());
         });
@@ -519,7 +564,7 @@ io.on("connect", (socket) => {
               if (action === "Assassinate") {
                 io.emit(
                   "announceReveal2",
-                  players[i].getName(),
+                  players[playerNum].getName(),
                   players[playerNum].getName(),
                   "contessa",
                   false
@@ -699,8 +744,8 @@ io.on("connect", (socket) => {
               } else if (action === "Assassinate" && isLying == null) {
                 cardType = "assassin";
               }
-              console.log(players[playerNum].getId() + " +++++++++++++++++");
-              console.log(stealPlayer + " --------------------");
+              // console.log(players[playerNum].getId() + " +++++++++++++++++");
+              // console.log(stealPlayer + " --------------------");
               if (
                 (action === "Steal" || action === "Assassinate") &&
                 players[playerNum].getId() != stealPlayer
@@ -795,22 +840,35 @@ io.on("connect", (socket) => {
               );
             }
             if (action === "Assassinate" && isLying != null) {
+              console.log("ASSASSINATE WAS ENTERED!!!!!!!!!!!!!!!!!!!");
+              io.emit(
+                "announceReveal2",
+                players[playerNum].getName(),
+                players[playerNum].getName(),
+                stealBlockChoice,
+                true
+              );
               if (players[playerNum].getNumCards() === 1) {
-                socket.emit(
-                  "loseCard",
-                  players[playerNum].getNumCards(),
-                  players[playerNum].getCards(),
-                  playerNum,
-                  numClients,
-                  playerNum,
-                  false,
-                  id,
-                  action,
-                  players[playerNum].getCoins(),
-                  i,
-                  players[playerNum].getNumCards()
-                );
-              } else {
+                console.log("ASSASSINATE WAS ENTERED???????????????????");
+                socket
+                  .to(players[playerNum].getId())
+                  .emit(
+                    "loseCard",
+                    players[playerNum].getNumCards(),
+                    players[playerNum].getCards(),
+                    playerNum,
+                    numClients,
+                    playerNum,
+                    lying,
+                    id,
+                    action,
+                    players[playerNum].getCoins(),
+                    i,
+                    players[playerNum].getNumCards()
+                  );
+              } else if (players[playerNum].getNumCards() === 2) {
+                console.log("ASSASSINATE WAS ENTERED%%%%%%%%%%%%%%%%%%%");
+                //When lying about having a contessa, it always makes both cards of i go dark, regardless of whether has contessa is true or not
                 const card = players[playerNum].getCards()[0];
                 players[playerNum].loseCard(card);
                 io.emit(
@@ -870,10 +928,10 @@ io.on("connect", (socket) => {
                   );
               }
             } else if (action === "Steal" && isLying != null) {
-              console.log("isLying was NOT null");
+              // console.log("isLying was NOT null");
               io.emit(
                 "announceReveal2",
-                players[i].getName(),
+                players[playerNum].getName(),
                 players[playerNum].getName(),
                 stealBlockChoice,
                 true
@@ -931,7 +989,7 @@ io.on("connect", (socket) => {
             if (action === "Foreign Aid") {
               io.emit(
                 "announceReveal2",
-                players[i].getName(),
+                players[playerNum].getName(),
                 players[playerNum].getName(),
                 "duke",
                 lying
@@ -958,7 +1016,7 @@ io.on("connect", (socket) => {
               (action === "Steal" && isLying == null) ||
               (action === "Assassinate" && isLying == null)
             ) {
-              console.log("isLying was null");
+              // console.log("isLying was null");
               let cardType;
               if (action === "Tax") {
                 cardType = "duke";
@@ -1016,11 +1074,13 @@ io.on("connect", (socket) => {
       numCards,
       stealPlayer
     ) => {
-      console.log(stealPlayer + " }}}}}}}}}}}}}}}}}}");
+      // console.log(stealPlayer + " }}}}}}}}}}}}}}}}}}");
       // console.log(lying + " OOOOOOOOOOOO");
       io.clients((error, clients) => {
         let numClients = clients.length;
-        let names = [];
+        // console.log("THESE ARE THE PLAYER NAMES");
+        // console.log(players);
+        names = [];
         players.forEach((player) => {
           names.push(player.getName());
         });
@@ -1028,7 +1088,7 @@ io.on("connect", (socket) => {
         //(players[i]);
 
         if (!lying) {
-          console.log("{{{{{{{{{{{{{{{{{{{{{{{{{{{{}}}}}}");
+          // console.log("{{{{{{{{{{{{{{{{{{{{{{{{{{{{}}}}}}");
           // console.log(stealBlockChoice);
           if (players[i].getNumCards() === 0) {
             io.emit("deleteStealPlayer");
@@ -1141,7 +1201,7 @@ io.on("connect", (socket) => {
               (action === "Steal" && stealBlockChoice != null) ||
               (action === "Assassinate" && stealBlockChoice != null)
             ) {
-              console.log("IT'S THESE BAD BOYS RIGHT HERE!!!!");
+              // console.log("IT'S THESE BAD BOYS RIGHT HERE!!!!");
               // ITS THESE BAD BOYS RIGHT HERE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
               if (numCards === 1) {
                 setTimeout(function () {
@@ -1169,7 +1229,7 @@ io.on("connect", (socket) => {
                   );
                 }, 2500);
               } else {
-                console.log("IT'S THESE GOOD BOYS RIGHT HERE!!!!");
+                //  console.log("IT'S THESE GOOD BOYS RIGHT HERE!!!!");
                 socket
                   .to(player.getId())
                   .emit(
@@ -1292,7 +1352,7 @@ io.on("connect", (socket) => {
             action === "Tax" ||
             action === "Exchange" ||
             (action === "Steal" && stealBlockChoice == null) ||
-            action === "Assassinate"
+            (action === "Assassinate" && stealBlockChoice == null)
           ) {
             // console.log("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
             //console.log("YESSSIRRR!!!!!!!!!!!!!");
@@ -1538,7 +1598,7 @@ io.on("connect", (socket) => {
           "revealLostCard",
           card,
           numClients,
-          game.getNames(),
+          names,
           players[i].getName(),
           player.getNumber(),
           players[i].getNumCards()
@@ -1548,7 +1608,7 @@ io.on("connect", (socket) => {
       "revealLostCard",
       card,
       numClients,
-      game.getNames(),
+      names,
       players[i].getName(),
       players[i].getNumber(),
       players[i].getNumCards()
@@ -1595,7 +1655,7 @@ io.on("connect", (socket) => {
         thePlayer = player;
       }
     });
-    console.log("THE PLAYER WAS EMITTED");
+    // console.log("THE PLAYER WAS EMITTED");
     let lying = thePlayer.stealLying(counterChoice);
     // console.log("LYING IS::: " + lying);
     if (counterChoice === "no") {
@@ -1626,7 +1686,9 @@ io.on("connect", (socket) => {
       );
     }
     socket.emit("income", thePlayer.getCoins());
-    let names = [];
+    // console.log("THESE ARE THE PLAYER NAMES");
+    // console.log(players);
+    names = [];
     players.forEach((player) => {
       names.push(player.getName());
     });
@@ -1730,10 +1792,10 @@ io.on("connect", (socket) => {
     io.emit("clearCounterCaptain");
   });
   socket.on("stealPauseGame", (i, numClients) => {
-    console.log("StealPAUSEGAME I IS " + i);
-    console.log(
-      "THE PLAYYYYYYYYYYYYYYER ISSSSSSSS OUTTTTTT: " + players[i].isOut()
-    );
+    // console.log("StealPAUSEGAME I IS " + i);
+    // console.log(
+    //   "THE PLAYYYYYYYYYYYYYYER ISSSSSSSS OUTTTTTT: " + players[i].isOut()
+    // );
     while (players[i].isOut()) {
       i = (i + 1) % numClients;
     }
@@ -1744,8 +1806,8 @@ io.on("connect", (socket) => {
     while (players[i].isOut()) {
       i = (i + 1) % numClients;
       ++j;
-      console.log("J WAS INCREMENTED BY 1");
-      console.log(j);
+      // console.log("J WAS INCREMENTED BY 1");
+      // console.log(j);
     }
     socket.emit("I'sUntilOut", j);
   });
@@ -1754,20 +1816,20 @@ io.on("connect", (socket) => {
     while (players[i].isOut()) {
       i = (i + 1) % numClients;
       ++numUntilNextPersonIn;
-      console.log("NUMUNTILNEXTPERSON WAS INCREMENTED BY 1");
-      console.log(numUntilNextPersonIn);
+      // console.log("NUMUNTILNEXTPERSON WAS INCREMENTED BY 1");
+      // console.log(numUntilNextPersonIn);
     }
     socket.emit("numUntilNextPersonIn", numUntilNextPersonIn);
   });
   socket.on("discardOneCard", (card) => {
-    console.log(card + " THIS IS THE CARD$$$$$$$$$$$$$$$$$$$");
+    //console.log(card + " THIS IS THE CARD$$$$$$$$$$$$$$$$$$$");
     game.addToBack(card);
   });
   socket.on("keepGamePaused", (i, numClients) => {
-    console.log("StealPAUSEGAME I IS " + i);
-    console.log(
-      "THE PLAYYYYYYYYYYYYYYER ISSSSSSSS OUTTTTTT: " + players[i].isOut()
-    );
+    // console.log("StealPAUSEGAME I IS " + i);
+    // console.log(
+    //   "THE PLAYYYYYYYYYYYYYYER ISSSSSSSS OUTTTTTT: " + players[i].isOut()
+    // );
     while (players[i].isOut()) {
       i = (i + 1) % numClients;
     }
@@ -1781,17 +1843,86 @@ io.on("connect", (socket) => {
       io.to(players[i].getId()).emit("removeStealBlockClick");
     }
   });
-  socket.on("checkGameOver", () => {
+  socket.on("checkGameOver", (i) => {
     if (game.gameOver()) {
-      console.log("SERVER GAME WHO WON " + game.whoWon());
-      io.emit("gameOver", game.whoWon());
+      //console.log("SERVER GAME WHO WON " + game.whoWon());
+      socket.emit("gameOver", game.whoWon());
+      io.clients((error, clients) => {
+        let numClients = clients.length;
+        while (players[i].isOut()) {
+          i = (i + 1) % numClients;
+          // console.log("ANDDDDD THE LOOP I's ARE: " + i);
+        }
+        console.log("THE I ISSSSSS " + i);
+        // console.log("ANDDDDD THE I IS: " + i);
+        //console.log(i + "   OOOOOOOOOUUUUUUUTTTTTTT");
+        //console.log("TAKE TURN IS GETTING CALLED &&&&&&&&&&&&&&&&&&");
+      });
     }
   });
-  socket.on("restartGame", () => {
-    io.emit("clearGame");
+  socket.on("restartGame", (id) => {
+    console.log(id);
     io.clients((error, clients) => {
       numClients = clients.length;
-      io.emit("numClients", numClients);
+      // console.log("HOW MANY TIMES MAN");
+      io.emit("clearGame", numClients, id);
+      console.log(
+        "NUMCLIENTS IS BEING CALLED??????!!!!!!!!!!??????????!!!!!!!!!!"
+      );
+    });
+  });
+  socket.on("callNewGame", (numClients, id) => {
+    socket.emit("newGame", numClients, id);
+    players.forEach((player) => {
+      socket.to(player.getId()).emit("newGame", numClients);
+    });
+  });
+  socket.on("startNewGame", (id) => {
+    game.restartGame();
+    players = [];
+    newUsernames = [];
+    game.getPlayers().forEach((player) => {
+      if (player.getId() === id) {
+        players.push(player);
+      }
+    });
+    game.getPlayers().forEach((player) => {
+      if (player.getId() != id) {
+        players.push(player);
+      }
+    });
+    for (let i = 0; i < numClients; ++i) {
+      players[i].setNumber(i + 1);
+    }
+    socket.on("addNewCards", () => {
+      io.emit("addNewStartingCoins", numClients);
+      io.emit("addNewStartingCards", numClients);
+    });
+    players.forEach((player) => {
+      newUsernames.push(player.getName());
+    });
+
+    socket.emit("changeOtherNames", newUsernames, numClients);
+    // console.log(numClients);
+    players.forEach((player) => {
+      socket
+        .to(player.getId())
+        .emit("changeOtherName", newUsernames, numClients, player.getName());
+    });
+    game.deal();
+    socket.emit("deal", players[0].getCards());
+    for (let j = 1; j < numClients; ++j) {
+      socket.to(players[j].getId()).emit("deal", players[j].getCards());
+    }
+
+    socket.emit("firstTurn", 0, numClients, true);
+    io.emit("green", numClients, players[0].getName());
+    socket.on("newNextTurn", (k, numClients) => {
+      io.emit("greenOff", numClients, players[0].getName());
+      socket
+        .to(players[k].getId())
+        .emit("takeTurn", k, numClients, players[k].getCoins());
+      io.emit("green", numClients, players[1].getName());
     });
   });
 });

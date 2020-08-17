@@ -8,7 +8,13 @@ class Player {
     this.cards = [];
     this.id = id;
   }
-
+  //Resets everything to its original state
+  resetPlayer() {
+    this.out = false;
+    this.coins = 2;
+    this.numCards = 2;
+    this.cards = [];
+  }
   //Increments coins by one
   gainOneCoin() {
     this.coins += 1;
